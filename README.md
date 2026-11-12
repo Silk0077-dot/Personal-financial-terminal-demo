@@ -1,121 +1,121 @@
-# Terminale finanziario
+# Financial Terminal
 
-Un terminale finanziario personale in stile professionale che gira in locale, nel browser. In un'unica schermata scura e densa riunisce quotazioni, grafici, analisi tecnica e fondamentale, notizie dal mondo con mappamondo interattivo, portafoglio titoli e bilancio personale.
+A professional-style personal financial terminal that runs locally in the browser. One dark, dense screen brings together quotes, charts, technical and fundamental analysis, world news on an interactive globe, a securities portfolio and personal budgeting.
 
-> 🔒 **Il codice sorgente è in un repository privato.** Questa pagina è una vetrina del progetto. Se vuoi vedere il codice, scrivimi e ti do accesso.
+> 🔒 **The source code lives in a private repository.** This page is a showcase of the project. If you'd like to see the code, get in touch and I'll give you access.
 
 ![Home](screenshot/home.png)
 
-_Tutti gli screenshot usano dati di prova inventati: nessun dato personale e nessun prezzo reale._
+_All screenshots use made-up test data: no personal data and no real prices. The interface is in Italian._
 
-## In breve
+## At a glance
 
-- **Zero dipendenze**: server in Python 3 con la sola libreria standard e interfaccia in un singolo file HTML con JavaScript puro. Grafici, mappamondo e ciambelle sono disegnati a mano su `<canvas>`, senza librerie esterne.
-- **Oltre 5.000 righe** fra backend (Python) e frontend (HTML/CSS/JS), sette pagine e più di 40 riquadri.
-- **Privacy prima di tutto**: il server ascolta solo su `127.0.0.1`. Portafoglio, spese e chiavi restano in file locali, e i file Excel dell'utente sono letti in sola lettura.
-- **Fonte dati intercambiabile**: il terminale non è legato a un fornitore. Un piccolo connettore (`fonte.py`) collega qualsiasi API di mercato; le funzioni che l'API non offre vengono semplicemente segnalate come non disponibili.
-- **Funziona anche offline**: ogni risposta viene salvata su disco e riusata senza rete, con una barra che indica la data dei dati.
+- **Zero dependencies**: a Python 3 server built only on the standard library, and the interface in a single HTML file with plain JavaScript. Charts, the globe and the donut charts are all hand-drawn on `<canvas>`, with no external libraries.
+- **Over 5,000 lines** of backend (Python) and frontend (HTML/CSS/JS), seven pages and more than 40 panels.
+- **Privacy first**: the server listens only on `127.0.0.1`. Portfolio, expenses and API keys stay in local files, and the user's Excel files are opened read-only.
+- **Pluggable data source**: the terminal isn't tied to any provider. A small connector (`fonte.py`) plugs in any market data API; features the API doesn't offer are simply shown as unavailable.
+- **Works offline**: every response is saved to disk and reused without a connection, with a banner showing how old the data is.
 
-## Pagine
+## Pages
 
-| Tasto | Pagina | Cosa fa |
+| Key | Page | What it does |
 |---|---|---|
-| **F1** | Home | Patrimonio netto con grafico nel tempo, mese in corso con budget, obiettivi di risparmio, avvisi di prezzo, prossimi eventi (macro, dividendi, cedole), heatmap di mercati e watchlist |
-| **F2** | Entrate & Uscite | Entrate e spese per categoria e sotto categoria, tasso di risparmio, budget mensili con indicatore di ritmo, confronto con l'anno precedente, obiettivi di risparmio, proiezione del patrimonio a tre scenari, andamento e riepilogo mensile con filtri, operazioni modificabili |
-| **F3** | Portafoglio | Posizioni riprezzate in tempo reale, P&L realizzato e non realizzato anche per anno, allocazione per strumento, area, settore e valuta, storico del valore con confronto con un indice, rendimento TWR e MWR, ribilanciamento, dividendi e cedole, simulazione delle tasse di vendita, zainetto fiscale |
-| **F4** | Notizie | Mappamondo interattivo con gli indici, regioni (Globale, Stati Uniti, Europa, Asia-Pacifico), variazioni per periodo, migliori e peggiori titoli, indici, valute e materie prime della regione, notizie su tre livelli |
-| **F5** | Agenda | Avvisi di prezzo con notifiche, calendario macro (BCE, Fed, inflazione), prossimi dividendi e cedole con importi lordi e netti |
-| **F6** | Mercato | Watchlist (lista o heatmap), grafico a candele o a linea, confronto fra due titoli, analisi tecnica, descrizione e composizione degli ETF, fondamentali in breve, monitor dei mercati |
-| **F7** | Fondamentali | Punteggio fondamentale 0–10 su cinque aree, valore di Graham, consenso e storico dei giudizi degli analisti, bilanci, dividendi per anno, storico prezzi con export CSV |
+| **F1** | Home | Net worth with a chart over time, current month with budgets, savings goals, price alerts, upcoming events (macro, dividends, coupons), heatmap of markets and watchlist |
+| **F2** | Income & Expenses | Income and expenses by category and subcategory, savings rate, monthly budgets with a pace indicator, year-over-year comparison, savings goals, three-scenario net-worth projection, filterable monthly trend and summary, editable transactions |
+| **F3** | Portfolio | Positions repriced in real time, realized and unrealized P&L (also by year), allocation by instrument, region, sector and currency, value history compared with an index, TWR and MWR returns, rebalancing, dividends and coupons, sale tax simulation, tax-loss tracker |
+| **F4** | News | Interactive globe with the indices, regions (Global, United States, Europe, Asia-Pacific), performance by period, top gainers and losers, regional indices, currencies and commodities, three-level news feed |
+| **F5** | Agenda | Price alerts with notifications, macro calendar (ECB, Fed, inflation), upcoming dividends and coupons with gross and net amounts |
+| **F6** | Market | Watchlist (list or heatmap), candlestick or line chart, two-ticker comparison, technical analysis, ETF description and holdings, fundamentals at a glance, market monitor |
+| **F7** | Fundamentals | 0–10 fundamental score across five areas, Graham value, analyst consensus and rating history, financial statements, dividends by year, price history with CSV export |
 
 ### F1 · Home
 
-- **Patrimonio netto** con grafico a 3M / 6M / YTD / 1A / 5A: il passato è ricostruito dai movimenti del portafoglio, da oggi in poi il valore reale viene salvato ogni giorno.
-- Mese in corso: entrate, spese, differenza, risparmio medio e barre dei budget.
-- Avanzamento degli obiettivi di risparmio, con la cifra mensile che serve per arrivarci in tempo.
-- Avvisi di prezzo, prossimi eventi macro, dividendi e cedole, heatmap di indici, valute, materie prime e watchlist.
+- **Net worth** with a 3M / 6M / YTD / 1Y / 5Y chart: the past is reconstructed from portfolio transactions, and from today on the real value is saved every day.
+- Current month: income, expenses, difference, average savings and budget bars.
+- Progress on savings goals, with the monthly amount needed to reach each one on time.
+- Price alerts, upcoming macro events, dividends and coupons, and a heatmap of indices, currencies, commodities and the watchlist.
 
-### F2 · Entrate & Uscite
+### F2 · Income & Expenses
 
-![Entrate e uscite](screenshot/entrate_uscite.png)
+![Income and expenses](screenshot/entrate_uscite.png)
 
-- Riepilogo del periodo scelto (mese, anno o date libere): entrate, spese, differenza, tasso di risparmio, quota investita.
-- Spese per categoria e per sotto categoria con barre proporzionali.
-- **Budget mensili** per categoria, sotto categoria o totale, colorati in base alla soglia, con una linea che mostra il ritmo di spesa atteso per quel giorno del mese.
-- Confronto con lo stesso periodo dell'anno precedente.
-- **Obiettivi di risparmio** (su risparmio, su una voce o sul patrimonio netto) con data di scadenza.
-- **Proiezione del patrimonio netto** a 5, 10 e 20 anni con tre scenari di rendimento e nota sull'inflazione.
-- Andamento mensile e riepilogo per mese filtrabili per anno e categoria; elenco delle operazioni modificabile e aggiunta manuale di entrate e uscite.
+- Summary for the chosen period (month, year or custom dates): income, expenses, difference, savings rate and amount invested.
+- Expenses by category and subcategory with proportional bars.
+- **Monthly budgets** by category, subcategory or in total, color-coded by threshold, with a line showing the expected spending pace for that day of the month.
+- Comparison with the same period of the previous year.
+- **Savings goals** (based on savings, a single item or net worth) with a deadline.
+- **Net-worth projection** at 5, 10 and 20 years under three return scenarios, with a note on inflation.
+- Monthly trend and month-by-month summary filterable by year and category; editable transaction list and manual entry of income and expenses.
 
-### F3 · Portafoglio
+### F3 · Portfolio
 
-![Portafoglio](screenshot/portafoglio.png)
+![Portfolio](screenshot/portafoglio.png)
 
-- Posizioni lette dall'Excel del broker e **riprezzate in tempo reale**, con P&L in euro e percentuale, peso e scorciatoie per aprire grafico, notizie e fondamentali.
-- Liquidità e voci del patrimonio modificabili direttamente dalla pagina, senza toccare l'Excel.
-- **Allocazione** in quattro ciambelle: tipo di strumento, area geografica, settore e valuta.
-- **Storico del valore** su più periodi o date libere, confrontabile con un indice.
-- **P&L** da sempre e per anno, realizzato e non realizzato.
-- **Rendimento vero del periodo**: time-weighted (TWR) e money-weighted (MWR/XIRR), calcolati da zero.
-- Acquisti e vendite registrabili e annullabili, **simulazione di vendita** con tasse stimate (26% e 12,5%).
-- **Ribilanciamento** verso pesi obiettivo, anche con soli acquisti.
-- Dividendi e cedole incassati e attesi, obbligazioni con calendario delle cedole, **zainetto fiscale** con la scadenza delle minusvalenze.
+- Positions read from the broker's Excel export and **repriced in real time**, with P&L in euros and percent, weight, and shortcuts to the chart, news and fundamentals.
+- Cash and net-worth items editable right from the page, without touching the Excel file.
+- **Allocation** in four donut charts: instrument type, region, sector and currency.
+- **Value history** over several periods or custom dates, comparable with an index.
+- **P&L** since inception and by year, realized and unrealized.
+- **True return for the period**: time-weighted (TWR) and money-weighted (MWR/XIRR), computed from scratch.
+- Buys and sells that can be recorded and undone, plus a **sale simulation** with estimated taxes (Italian 26% and 12.5% rates).
+- **Rebalancing** toward target weights, optionally with buys only.
+- Dividends and coupons received and expected, bonds with a coupon calendar, and a **tax-loss tracker** with the expiry of each capital loss.
 
-### F4 · Notizie
+### F4 · News
 
-![Notizie](screenshot/notizie.png)
+![News](screenshot/notizie.png)
 
-- **Mappamondo interattivo** disegnato su canvas: si trascina, si fa lo zoom e funziona offline. Le etichette degli indici mostrano la variazione e aprono grafico e notizie.
-- Quattro regioni (Globale, Stati Uniti, Europa, Asia-Pacifico), ognuna con i propri indici, coppie di valute e materie prime.
-- **Variazione per periodo** (1G, 1S, 1M, 3M, 6M, YTD, 1A) per tutti i riquadri.
-- **Migliori e peggiori**: i titoli delle grandi società della regione che salgono o scendono di più nel periodo scelto.
-- Notizie su tre livelli: mercati della regione, titolo selezionato e titoli della watchlist, con ricerca e filtro.
+- **Interactive globe** drawn on canvas: drag to rotate, zoom, and it works offline. Index labels show the change and open the chart and news.
+- Four regions (Global, United States, Europe, Asia-Pacific), each with its own indices, currency pairs and commodities.
+- **Performance by period** (1D, 1W, 1M, 3M, 6M, YTD, 1Y) for every panel.
+- **Gainers and losers**: the large-cap stocks of the region that rose or fell the most in the chosen period.
+- News on three levels: the region's markets, the selected ticker, and the watchlist tickers, with search and filter.
 
 ### F5 · Agenda
 
 ![Agenda](screenshot/agenda.png)
 
-- **Avvisi di prezzo** (sopra o sotto una soglia) controllati in background, con notifica a schermo e distanza dalla soglia.
-- **Calendario macro**: riunioni BCE e Fed, inflazione USA e area euro, con il conto alla rovescia.
-- **Prossimi dividendi e cedole** dei prossimi 12 mesi, con importi lordi e netti stimati.
+- **Price alerts** (above or below a threshold) checked in the background, with an on-screen notification and the distance from the threshold.
+- **Macro calendar**: ECB and Fed meetings, US and euro-area inflation, with a countdown.
+- **Upcoming dividends and coupons** for the next 12 months, with estimated gross and net amounts.
 
-### F6 · Mercato
+### F6 · Market
 
-![Mercato](screenshot/mercato.png)
+![Market](screenshot/mercato.png)
 
-- Watchlist in lista o **heatmap**, con ritardo del dato (tempo reale o 15 minuti) per ogni titolo.
-- Testata con prezzo, variazione, massimo, minimo, volume e freschezza dell'ultimo scambio.
-- **Grafico** a candele o a linea da 1 giorno a 5 anni o su date libere, con **tooltip al passaggio del mouse**, volumi e confronto in percentuale con un secondo titolo.
-- **Analisi tecnica** su più intervalli (15m, 1h, 4h, 1g, 1s): giudizio complessivo, medie mobili e oscillatori, RSI, MACD, stocastico, ADX, CCI, ATR, Bollinger.
-- **Descrizione** del titolo e, per ETF, fondi e indici, **composizione**: tipo di attività, paesi, settori e prime 10 partecipazioni, con ISIN, costi e tipo di replica.
-- Fondamentali e giudizio degli analisti in breve per le azioni.
-- Monitor di indici, valute, materie prime, cripto e tassi, più un nastro scorrevole in alto.
+- Watchlist as a list or **heatmap**, with the data delay (real time or 15 minutes) for each ticker.
+- Header with price, change, high, low, volume and how fresh the last trade is.
+- **Chart**: candlesticks or line from 1 day to 5 years or custom dates, with **hover tooltips**, volume, and percentage comparison against a second ticker.
+- **Technical analysis** on several timeframes (15m, 1h, 4h, 1d, 1w): overall rating, moving averages and oscillators, RSI, MACD, stochastic, ADX, CCI, ATR, Bollinger Bands.
+- Ticker **description** and, for ETFs, funds and indices, **holdings breakdown**: asset type, countries, sectors and top 10 holdings, with ISIN, costs and replication method.
+- Fundamentals and analyst rating at a glance for stocks.
+- Monitor of indices, currencies, commodities, crypto and rates, plus a scrolling ticker tape at the top.
 
-![Composizione di un ETF](screenshot/composizione.png)
+![ETF holdings](screenshot/composizione.png)
 
-### F7 · Fondamentali
+### F7 · Fundamentals
 
-![Fondamentali](screenshot/fondamentali.png)
+![Fundamentals](screenshot/fondamentali.png)
 
-- **Punteggio fondamentale 0–10** su cinque aree (valutazione, redditività, crescita, solidità, dividendo) con semafori per ogni indicatore e **valore di Graham**.
-- **Raccomandazioni degli analisti**: giudizio medio, prezzi obiettivo minimo, medio e massimo, andamento dei giudizi negli ultimi mesi e ultimi cambi di giudizio.
-- Valutazione, redditività e crescita, solidità finanziaria, dividendi e utili, dati di mercato, profilo.
-- Bilanci annuali, dividendi per anno e storico prezzi con export CSV.
+- **0–10 fundamental score** across five areas (valuation, profitability, growth, financial strength, dividend), with a traffic light for each metric and the **Graham value**.
+- **Analyst recommendations**: average rating, low, mean and high price targets, how ratings have moved over recent months, and the latest rating changes.
+- Valuation, profitability and growth, financial strength, dividends and earnings, market data, company profile.
+- Annual financial statements, dividends by year and price history with CSV export.
 
-## Interfaccia
+## Interface
 
-- **Guidata da tastiera**: tasti funzione per le pagine e una riga di comando (`/`) per aprire titoli, gestire la watchlist, cambiare intervallo, registrare operazioni e creare avvisi (es. `AVVISO ENI.MI < 13`, `VS AAPL`).
-- **Sezioni riducibili**: ogni riquadro si chiude con una freccia e la scelta viene ricordata.
-- Tooltip sui grafici, orologi delle principali borse, avviso quando il server acceso è più vecchio della pagina.
-- Spegnimento automatico dopo un periodo di inattività configurabile.
+- **Keyboard-driven**: function keys for the pages and a command line (`/`) to open tickers, manage the watchlist, change the chart range, record trades and create alerts (e.g. `AVVISO ENI.MI < 13`, `VS AAPL`).
+- **Collapsible sections**: every panel folds away with an arrow, and the choice is remembered.
+- Chart tooltips, clocks for the main exchanges, and a warning when the running server is older than the page.
+- Automatic shutdown after a configurable period of inactivity.
 
-## Aspetti tecnici
+## Technical highlights
 
-- **Backend**: `http.server` multithread con API JSON, cache in memoria con scadenza, cache persistente su disco per l'uso offline, limitazione delle richieste verso il fornitore, elaborazioni in parallelo con un pool di thread.
-- **Dati**: lettura di file Excel (`.xlsx`) con il parser XML della libreria standard, salvataggi JSON atomici (file temporaneo e `fsync`) con recupero automatico dei file danneggiati.
-- **Finanza**: TWR e XIRR calcolati da zero, ricostruzione storica del portafoglio e del patrimonio dai movimenti, variazioni per periodo, calendario delle cedole obbligazionarie, tassazione italiana (26% e 12,5%) e scadenza delle minusvalenze.
-- **Frontend**: grafici a candele, ad area, a barre e a ciambella e mappamondo ortografico con rotazione e zoom, tutti su canvas; layout a griglia responsive; tema scuro ad alto contrasto.
-- **Analisi**: indicatori tecnici calcolati in locale e punteggio fondamentale basato su multipli, redditività, crescita, solidità e dividendo.
+- **Backend**: multithreaded `http.server` with a JSON API, in-memory cache with expiry, persistent on-disk cache for offline use, rate limiting toward the data provider, parallel work on a thread pool.
+- **Data**: reads Excel (`.xlsx`) files with the standard-library XML parser; atomic JSON writes (temp file plus `fsync`) with automatic recovery of corrupted files.
+- **Finance**: TWR and XIRR computed from scratch, historical reconstruction of the portfolio and net worth from transactions, multi-period performance, bond coupon schedules, Italian taxation (26% and 12.5%) and capital-loss expiry.
+- **Frontend**: candlestick, area, bar and donut charts and an orthographic globe with rotation and zoom, all on canvas; responsive grid layout; high-contrast dark theme.
+- **Analysis**: technical indicators computed locally, and a fundamental score based on multiples, profitability, growth, financial strength and dividend.
 
 ## Stack
 
@@ -123,12 +123,12 @@ Python 3 · HTML · CSS · JavaScript (vanilla) · Canvas API
 
 ---
 
-Progetto personale. Non è consulenza finanziaria e non è affiliato ad alcun fornitore di dati.
+Personal project. Not financial advice, and not affiliated with any data provider.
 
 <details>
-<summary>🇬🇧 English summary</summary>
+<summary>🇮🇹 Riassunto in italiano</summary>
 
-A personal, Bloomberg-style financial terminal that runs locally in the browser. Built with a dependency-free Python 3 standard-library server and a single vanilla-JS HTML front end with hand-drawn canvas charts and an interactive globe (5,000+ lines). Seven keyboard-driven pages cover: a home dashboard with a net-worth chart; personal budgeting with monthly budgets, savings goals and net-worth projection; a portfolio tracker (live repricing, allocation, TWR/XIRR, benchmark comparison, rebalancing, dividends, bond coupons, Italian tax handling); world news with an interactive globe, regional markets, multi-period performance and top gainers/losers; an agenda with price alerts and the macro calendar; a market page with candlestick charts, hover tooltips, technical analysis and ETF composition; and fundamental analysis with a 0–10 score, Graham value and analyst consensus. Data providers are pluggable through a small connector module, and everything stays on the user's machine (localhost only, read-only Excel input, offline disk cache).
+Un terminale finanziario personale in stile professionale che gira in locale, nel browser. Server in Python 3 con la sola libreria standard e interfaccia in un unico file HTML con JavaScript puro, grafici e mappamondo disegnati a mano su canvas (oltre 5.000 righe). Sette pagine guidate da tastiera: Home con il grafico del patrimonio; entrate e uscite con budget, obiettivi di risparmio e proiezione del patrimonio; portafoglio (prezzi in tempo reale, allocazione, TWR/XIRR, confronto con un indice, ribilanciamento, dividendi, cedole, tassazione italiana); notizie con mappamondo interattivo, mercati per regione, variazioni per periodo e migliori/peggiori; agenda con avvisi di prezzo e calendario macro; mercato con grafici a candele, tooltip, analisi tecnica e composizione degli ETF; analisi fondamentale con punteggio 0–10, valore di Graham e consenso degli analisti. La fonte dati si collega con un piccolo connettore e tutto resta sul PC dell'utente.
 
-**The source code is private: contact me for access.**
+**Il codice sorgente è privato: scrivimi per avere accesso.**
 </details>
